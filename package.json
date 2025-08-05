@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-management-system",
+  "version": "1.0.0",
+  "description": "A modern portfolio management system with React frontend and Node.js backend",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd BACKEND && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "start": "cd BACKEND && npm start",
+    "build": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

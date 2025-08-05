@@ -1,6 +1,6 @@
-# Portfolio Management System
+# Trinity Firms - Portfolio Management System
 
-A modern web application for managing investment portfolios with real-time stock data and analytics.
+A professional portfolio management platform for modern investors. Track, analyze, and grow your investments with confidence using Trinity Firms' comprehensive suite of financial tools.
 
 ## Features
 
