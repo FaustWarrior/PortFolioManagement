@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Portfolio Management System</h1>
+            <p>Track, analyze, and manage your investment portfolio</p>
+        </header>
+
+        <!-- Portfolio Summary -->
+        <div class="card">
+            <h2>Portfolio Summary</h2>
+            <div class="portfolio-summary">
+                <div class="summary-card">
+                    <div class="summary-value" id="totalValue">$0.00</div>
+                    <div class="summary-label">Current Value</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value" id="totalPnL">$0.00</div>
+                    <div class="summary-label">Total P&L</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value" id="pnlPercentage">0.00%</div>
+                    <div class="summary-label">P&L %</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value" id="totalStocks">0</div>
+                    <div class="summary-label">Total Stocks</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="card">
+            <h2>Search & Add Stocks</h2>
+            <div class="search-section">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search for stocks (e.g., AAPL, MSFT, TSLA)...">
+                <button id="searchBtn" class="btn btn-primary">Search</button>
+            </div>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- Portfolio Holdings -->
+        <div class="card">
+            <h2>Your Portfolio</h2>
+            <div id="portfolioList"></div>
+        </div>
+
+        <!-- Performance Chart -->
+        <div class="card">
+            <h2>Stock Performance</h2>
+            <p>Click "Chart" on any stock to view its historical performance</p>
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
