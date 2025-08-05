@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    @apply bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-glass rounded-2xl;
+  }
+  
+  .premium-card {
+    @apply bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl border border-white/30 shadow-premium rounded-3xl;
+  }
+  
+  .gradient-border {
+    @apply relative overflow-hidden rounded-2xl;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-2xl p-[1px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-white/80 hover:bg-white/90 text-gray-700 font-medium py-3 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 backdrop-blur-sm border border-white/30;
+  }
+  
+  .sidebar-item {
+    @apply flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-white/50 hover:text-blue-600 transition-all duration-200;
+  }
+  
+  .sidebar-item.active {
+    @apply bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-600 border-r-2 border-blue-500;
+  }
+  
+  .metric-card {
+    @apply premium-card p-6 hover:shadow-glow transition-all duration-300 hover:scale-105;
+  }
+  
+  .chart-container {
+    @apply premium-card p-6 h-80;
+  }
+  
+  .floating-action {
+    @apply fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-full shadow-glow hover:shadow-2xl transition-all duration-300 hover:scale-110 z-50;
+  }
+}

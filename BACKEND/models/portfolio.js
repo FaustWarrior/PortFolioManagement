@@ -46,8 +46,8 @@ async function addItem(ticker, qty = 1, buyPrice = null) {
       if (existing.length > 0) {
         // Update existing holding
         const current = existing[0];
-        const newQuantity = current.quantity + qty;
-        const newTotalInvested = current.total_invested + totalAmount;
+        const newQuantity = parseInt(current.quantity) + parseInt(qty);
+        const newTotalInvested = parseFloat(current.total_invested) + parseFloat(totalAmount);
         const newAvgPrice = newTotalInvested / newQuantity;
 
         await pool.execute(
@@ -119,17 +119,20 @@ async function sellItem(ticker, qty) {
       }
 
       const holding = existing[0];
-      if (holding.quantity < qty) {
-        return { success: false, error: `Insufficient shares. You only have ${holding.quantity} shares of ${ticker}` };
+      const currentQuantity = parseInt(holding.quantity);
+      const sellQuantity = parseInt(qty);
+      
+      if (currentQuantity < sellQuantity) {
+        return { success: false, error: `Insufficient shares. You only have ${currentQuantity} shares of ${ticker}` };
       }
 
       const sellPrice = await getCurrentPrice(ticker);
-      const newQuantity = holding.quantity - qty;
+      const newQuantity = currentQuantity - sellQuantity;
 
       if (newQuantity <= 0) {
         await pool.execute('DELETE FROM holdings WHERE ticker = ?', [ticker]);
       } else {
-        const newTotalInvested = holding.total_invested * (newQuantity / holding.quantity);
+        const newTotalInvested = parseFloat(holding.total_invested) * (newQuantity / currentQuantity);
         await pool.execute(
           'UPDATE holdings SET quantity = ?, total_invested = ? WHERE ticker = ?',
           [newQuantity, newTotalInvested, ticker]
