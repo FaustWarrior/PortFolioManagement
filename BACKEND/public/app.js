@@ -306,7 +306,7 @@ class PortfolioApp {
                 datasets: [{
                     label: `${symbol} Closing Price`,
                     data: values,
-                    borderColor: '#667eea',
+                    borderColor: '#4a90e2',
                     backgroundColor: 'rgba(102, 126, 234, 0.1)',
                     borderWidth: 2,
                     fill: true,

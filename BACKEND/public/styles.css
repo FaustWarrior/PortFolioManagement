@@ -7,9 +7,9 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
-    color: #333;
+    color: #2d3748;
 }
 
 .container {
@@ -73,7 +73,7 @@ body {
 
 .search-input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #4a90e2;
 }
 
 .btn {
@@ -95,7 +95,7 @@ body {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
 
 .btn-success {
@@ -129,8 +129,8 @@ body {
 }
 
 .portfolio-item:hover {
-    border-color: #667eea;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: #4a90e2;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
 .portfolio-header {
@@ -192,7 +192,7 @@ body {
 }
 
 .quantity-badge {
-    background: #667eea;
+    background: #4a90e2;
     color: white;
     padding: 4px 12px;
     border-radius: 20px;
@@ -233,8 +233,8 @@ body {
 }
 
 .search-item:hover {
-    border-color: #667eea;
-    background: #edf2f7;
+    border-color: #4a90e2;
+    background: #f8fafc;
 }
 
 .search-item-info {
