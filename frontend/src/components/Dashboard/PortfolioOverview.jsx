@@ -69,6 +69,13 @@ const PortfolioOverview = ({ portfolio, onRefresh }) => {
           <span className={`stat-badge ${totalPnL >= 0 ? 'positive' : 'negative'}`}>
             {totalPnL >= 0 ? '+' : ''}${totalPnL.toFixed(2)}
           </span>
+          <button 
+            onClick={() => onRefresh()}
+            className="refresh-btn"
+            title="Refresh Prices"
+          >
+            🔄
+          </button>
         </div>
       </div>
 
@@ -81,7 +88,10 @@ const PortfolioOverview = ({ portfolio, onRefresh }) => {
                 <div className="stock-shares">{stock.quantity} shares</div>
               </div>
               <div className="stock-value">
-                <div className="current-price">${stock.current_price.toFixed(2)}</div>
+                <div className="current-price">
+                  ${stock.current_price.toFixed(2)}
+                  {stock.price_unavailable && <span className="price-warning" title="Real-time price unavailable, showing average cost">⚠️</span>}
+                </div>
                 <div className={`pnl ${stock.total_pnl >= 0 ? 'positive' : 'negative'}`}>
                   {stock.total_pnl >= 0 ? '+' : ''}${stock.total_pnl.toFixed(2)}
                   <span className="pnl-percent">({stock.pnl_percentage.toFixed(1)}%)</span>

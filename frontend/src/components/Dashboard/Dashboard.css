@@ -418,6 +418,15 @@
   font-weight: 600;
   color: #1f2937;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.price-warning {
+  font-size: 0.8rem;
+  color: #f59e0b;
+  cursor: help;
 }
 
 .pnl {
@@ -532,6 +541,22 @@
 
 .stat-badge.negative {
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.refresh-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .pnl-cell.positive {

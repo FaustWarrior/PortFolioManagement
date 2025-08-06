@@ -8,12 +8,23 @@ let memoryPortfolio = [];
 async function getCurrentPrice(ticker) {
   try {
     const FINNHUB_KEY = process.env.FINNHUB_KEY;
+    if (!FINNHUB_KEY) {
+      console.error('Finnhub API key not configured');
+      return null;
+    }
+    
     const url = `https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${FINNHUB_KEY}`;
-    const response = await axios.get(url, { timeout: 5000 });
-    return response.data.c || 0;
+    const response = await axios.get(url, { timeout: 10000 });
+    
+    if (response.data && response.data.c && response.data.c > 0) {
+      return response.data.c;
+    } else {
+      console.error(`Invalid price data for ${ticker}:`, response.data);
+      return null;
+    }
   } catch (error) {
     console.error(`Error fetching price for ${ticker}:`, error.message);
-    return 100; // Default price for testing
+    return null;
   }
 }
 
@@ -27,8 +38,8 @@ async function addItem(ticker, qty = 1, buyPrice = null) {
   }
 
   const price = buyPrice || await getCurrentPrice(ticker);
-  if (!price) {
-    throw new Error('Unable to fetch current price');
+  if (!price || price <= 0) {
+    throw new Error(`Unable to fetch current price for ${ticker}. Please try again later.`);
   }
 
   const totalAmount = price * qty;
@@ -126,7 +137,7 @@ async function sellItem(ticker, qty) {
         return { success: false, error: `Insufficient shares. You only have ${currentQuantity} shares of ${ticker}` };
       }
 
-      const sellPrice = await getCurrentPrice(ticker);
+      const sellPrice = await getCurrentPrice(ticker) || parseFloat(holding.avg_buy_price);
       const newQuantity = currentQuantity - sellQuantity;
 
       if (newQuantity <= 0) {
@@ -211,7 +222,9 @@ async function getPortfolio() {
       const portfolioWithPnL = await Promise.all(
         holdings.map(async (holding) => {
           const currentPrice = await getCurrentPrice(holding.ticker);
-          const currentValue = currentPrice * holding.quantity;
+          // If we can't get current price, use average buy price as fallback
+          const effectivePrice = currentPrice || parseFloat(holding.avg_buy_price);
+          const currentValue = effectivePrice * holding.quantity;
           const totalPnL = currentValue - holding.total_invested;
           const pnlPercentage = holding.total_invested > 0 ? (totalPnL / holding.total_invested) * 100 : 0;
 
@@ -220,10 +233,11 @@ async function getPortfolio() {
             quantity: holding.quantity,
             avg_buy_price: parseFloat(holding.avg_buy_price),
             total_invested: parseFloat(holding.total_invested),
-            current_price: currentPrice,
+            current_price: effectivePrice,
             current_value: currentValue,
             total_pnl: totalPnL,
-            pnl_percentage: pnlPercentage
+            pnl_percentage: pnlPercentage,
+            price_unavailable: !currentPrice // Flag to indicate if real-time price is unavailable
           };
         })
       );
@@ -242,7 +256,9 @@ async function getPortfolioMemory() {
   const portfolioWithPnL = await Promise.all(
     memoryPortfolio.map(async (holding) => {
       const currentPrice = await getCurrentPrice(holding.ticker);
-      const currentValue = currentPrice * holding.quantity;
+      // If we can't get current price, use average buy price as fallback
+      const effectivePrice = currentPrice || holding.avg_buy_price;
+      const currentValue = effectivePrice * holding.quantity;
       const totalPnL = currentValue - holding.total_invested;
       const pnlPercentage = holding.total_invested > 0 ? (totalPnL / holding.total_invested) * 100 : 0;
 
@@ -251,10 +267,11 @@ async function getPortfolioMemory() {
         quantity: holding.quantity,
         avg_buy_price: holding.avg_buy_price,
         total_invested: holding.total_invested,
-        current_price: currentPrice,
+        current_price: effectivePrice,
         current_value: currentValue,
         total_pnl: totalPnL,
-        pnl_percentage: pnlPercentage
+        pnl_percentage: pnlPercentage,
+        price_unavailable: !currentPrice // Flag to indicate if real-time price is unavailable
       };
     })
   );
