@@ -5,9 +5,12 @@ A professional portfolio management platform for modern investors. Track, analyz
 ## Features
 
 - **Portfolio Management**: Add, buy, sell, and remove stocks from your portfolio
-- **Real-time Data**: Live stock prices and search functionality via Finnhub API
+- **Real-time Data**: Live stock prices with automatic refresh every 30 seconds
+- **Profit & Loss Tracking**: Accurate P&L calculations based on actual purchase prices
+- **Price Fallback System**: Shows average cost when real-time prices unavailable
 - **Historical Analysis**: View stock performance charts using Polygon API
 - **Portfolio Analytics**: Track total portfolio value, number of holdings, and shares
+- **Transaction History**: Complete record of all buy/sell transactions
 - **Responsive Design**: Modern, mobile-friendly user interface
 - **REST API**: Complete backend API for portfolio operations
 
@@ -15,6 +18,7 @@ A professional portfolio management platform for modern investors. Track, analyz
 
 ### Backend
 - **Node.js** with Express.js framework
+- **MySQL Database** for persistent data storage
 - **Finnhub API** for real-time stock data and search
 - **Polygon API** for historical stock data
 - **Axios** for HTTP requests
@@ -92,9 +96,11 @@ Project-root/
 - **Remove Stocks**: Click "Remove" to completely remove a stock from portfolio
 
 ### Portfolio Analytics
-- View real-time portfolio value in the summary section
-- Track total number of different stocks held
-- Monitor total shares across all holdings
+- View real-time portfolio value with automatic 30-second refresh
+- Track profit/loss based on actual purchase prices
+- Monitor total shares and investment amounts
+- Visual indicators when real-time prices are unavailable
+- Manual refresh button for instant price updates
 
 ## API Endpoints
 
@@ -124,13 +130,13 @@ See [API_DOCUMENTATION.md](BACKEND/API_DOCUMENTATION.md) for detailed API docume
 
 ## Future Enhancements
 
-- **Database Integration**: Replace in-memory storage with persistent database
-- **User Authentication**: Multi-user support with secure login
+- **WebSocket Integration**: Real-time price streaming for instant updates
 - **Advanced Analytics**: Portfolio performance metrics and comparisons
-- **Real-time Updates**: WebSocket integration for live price updates
 - **Export Features**: PDF reports and CSV data export
 - **Watchlists**: Track stocks without purchasing
 - **News Integration**: Stock-related news and analysis
+- **Mobile App**: Native iOS and Android applications
+- **Alerts System**: Price and P&L notifications
 
 ## Contributing
 
