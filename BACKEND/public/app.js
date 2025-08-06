@@ -3,12 +3,14 @@ class PortfolioApp {
     constructor() {
         this.chart = null;
         this.portfolio = [];
+        this.refreshInterval = null;
         this.init();
     }
 
     init() {
         this.loadPortfolio();
         this.setupEventListeners();
+        this.startAutoRefresh();
     }
 
     setupEventListeners() {
@@ -17,6 +19,12 @@ class PortfolioApp {
         document.getElementById('searchInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.searchTickers();
         });
+        
+        // Manual refresh button
+        const refreshBtn = document.getElementById('refreshBtn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => this.loadPortfolio());
+        }
     }
 
     async loadPortfolio() {
@@ -352,6 +360,20 @@ class PortfolioApp {
 
     showSuccess(message) {
         this.showMessage(message, 'success');
+    }
+
+    startAutoRefresh() {
+        // Refresh every 2 minutes to avoid API limits
+        this.refreshInterval = setInterval(() => {
+            this.loadPortfolio();
+        }, 120000); // 2 minutes
+    }
+    
+    stopAutoRefresh() {
+        if (this.refreshInterval) {
+            clearInterval(this.refreshInterval);
+            this.refreshInterval = null;
+        }
     }
 
     showMessage(message, type) {

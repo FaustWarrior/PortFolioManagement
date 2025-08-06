@@ -1,5 +1,6 @@
 const portfolio = require('../models/portfolio');
 const axios = require('axios');
+const rateLimiter = require('../utils/rateLimiter');
 
 // Validation helpers
 const validateTicker = (ticker) => {
@@ -85,6 +86,7 @@ exports.searchFinnhub = async (req, res) => {
   }
 
   try {
+    await rateLimiter.waitForSlot();
     const url = `https://finnhub.io/api/v1/search?q=${encodeURIComponent(q)}&token=${FINNHUB_KEY}`;
     const response = await axios.get(url, { timeout: 10000 });
     res.json(response.data);
@@ -202,6 +204,7 @@ exports.getCurrentPrice = async (req, res) => {
   }
 
   try {
+    await rateLimiter.waitForSlot();
     const url = `https://finnhub.io/api/v1/quote?symbol=${ticker.toUpperCase()}&token=${FINNHUB_KEY}`;
     const response = await axios.get(url, { timeout: 10000 });
     res.json(response.data);
